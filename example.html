@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Example</title>
+<link rel="stylesheet" type="text/css" href="http://dev.sencha.com/deploy/ext-4.0.7-gpl/resources/css/ext-all.css" />
+<style type="text/css">
+body {
+    padding: 50px !important;
+}
+</style>
+<script type="text/javascript" charset="utf-8" src="http://dev.sencha.com/deploy/ext-4.0.7-gpl/bootstrap.js"></script>
+<script type="text/javascript" charset="utf-8" src="KeyboardUser.js"></script>
+<script type="text/javascript">
+Ext.onReady(function() {
+    Ext.create( 'Ext.form.field.Date', {
+        margin: '0 5 0 0',
+        fieldLabel: 'From',
+        allowBlank: false,
+        labelWidth: 70,
+        plugins: Ext.create('Ext.ux.plugin.field.date.KeyboardUser'),
+        renderTo: 'ext-datefield'
+    });
+});
+</script>
+</head>
+<body>
+<div id="ext-datefield"> </div>
+</body>
+</html>
