@@ -1,3 +1,7 @@
+/**
+* @class Ext.ux.plugin.field.date.KeyboardUser
+* @author Michał Lipiński (https://github.com/thatstooeasy)
+*/
 Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
     extend: 'Ext.AbstractPlugin',
     alias: 'plugin.fielddatetypinghelper',
