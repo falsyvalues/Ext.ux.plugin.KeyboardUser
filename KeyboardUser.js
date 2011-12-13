@@ -43,7 +43,7 @@ Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
         Ext.apply(field, {
             enableKeyEvents: true
         });
-        field.addListener( 'keypress', me.help, me );
+        field.addListener( 'keydown', me.help, me );
         me.field = field;
     },
     /**
@@ -108,7 +108,7 @@ Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
      */
     destroy: function() {
         var me = this;
-        me.field.removeListener( 'keypress', me.help, me );
+        me.field.removeListener( 'keydown', me.help, me );
         me.callParent(arguments);
     }
 });
