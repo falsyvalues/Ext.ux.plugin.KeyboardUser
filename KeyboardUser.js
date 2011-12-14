@@ -4,6 +4,7 @@
 */
 Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
     extend: 'Ext.AbstractPlugin',
+    alternateClassName: 'Ext.ux.plugin.KeyboardUser',
     alias: 'plugin.fielddatetypinghelper',
     requires: ['Ext.Date', 'Ext.EventObject'],
     /**
