@@ -1,22 +1,30 @@
 /**
 * @class Ext.ux.plugin.field.date.KeyboardUser
-* @author Michał Lipiński (https://github.com/thatstooeasy)
+* @author Michał Lipiński (https://github.com/1x0)
+* @version 0.2.0
 */
 Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
     extend: 'Ext.AbstractPlugin',
     alternateClassName: 'Ext.ux.plugin.KeyboardUser',
     alias: 'plugin.fielddatetypinghelper',
-    requires: ['Ext.Date', 'Ext.EventObject'],
+    requires: [
+        'Ext.Date',
+        'Ext.Array',
+        'Ext.EventObject',
+        'Ext.String'
+    ],
     /**
      * @cfg {String} token
      * Token that represents "now"
      */
     token: "t",
     /**
-     * Key number see Ext.EventObject
-     * @cfg {Number} activationKey
+     * Array of key numbers, see Ext.EventObject
+     * @cfg {Array} activationKey
      */
-    activationKey: Ext.EventObject.TAB,
+    activationKey: [
+        Ext.EventObject.TAB
+    ],
     /**
      * Date interval constant
      * @cfg {String} interval
@@ -28,11 +36,14 @@ Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
      */
     constructor: function(config) {
         var me = this;
+
         Ext.apply(me, config);
-        if (!me.token) {
+
+        if ( !me.token ) {
             me.token = "t";
         }
-        me.splitRe = new RegExp('(' + me.token + ')(\\+|\\-)?([0-9]+)?');
+
+        me.splitRe = new RegExp('(' + Ext.String.escapeRegex(me.token) + ')(\\+|\\-)?([0-9]+)?');
     },
     /**
      * @private
@@ -41,10 +52,13 @@ Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
      */
     init: function(field) {
         var me = this;
+
         Ext.apply(field, {
             enableKeyEvents: true
         });
+
         field.addListener( 'keydown', me.help, me );
+
         me.field = field;
     },
     /**
@@ -57,10 +71,11 @@ Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
         var me = this,
             value = field.getValue() || "";
 
-        if ( !me.splitRe.test(value) ) {
+        if ( Ext.isDate(value) ) {
             return false;
         }
-        return true;
+
+        return me.splitRe.test(value);
     },
     /**
      * @private
@@ -97,7 +112,7 @@ Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
     help: function(field, event, data) {
         var me = this;
 
-        if (event.getKey() === me.activationKey && me.testValue(field)) {
+        if ( Ext.Array.indexOf(me.activationKey, event.getKey()) !== -1 && me.testValue(field) ) {
             field.setValue( me.getValue.apply( me, me.splitRe.exec( field.getValue().toString() ).slice(1) ) );
         }
 
@@ -109,6 +124,7 @@ Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
      */
     destroy: function() {
         var me = this;
+
         me.field.removeListener( 'keydown', me.help, me );
         me.callParent(arguments);
     }
