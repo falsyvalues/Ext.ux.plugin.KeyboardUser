@@ -1,6 +1,6 @@
 /**
 * @class Ext.ux.plugin.field.date.KeyboardUser
-* @author Michał Lipiński (https://github.com/1x0)
+* @author Michał Lipiński (https://github.com/falsyvalues)
 * @version 0.2.0
 */
 Ext.define('Ext.ux.plugin.field.date.KeyboardUser', {
